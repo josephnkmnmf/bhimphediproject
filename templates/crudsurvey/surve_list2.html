@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h4>Filter by:</h4>
+<form method="get">
+    <p>
+        Ref no: &nbsp{{ filter.form.ref_no }} &nbsp;&nbsp
+        House owner: &nbsp{{ filter.form.house_owner }} &nbsp
+        Phone: &nbsp {{ filter.form.phone_no }} &nbsp
+        <button class="btn btn-success" type="submit">Search</button>
+    </p>
+</form>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <td>Reference No</td>
+        <td>House owner name</td>
+        <td>Phone no</td>
+        <td>Longitude</td>
+        <td>latitude</td>
+
+    </tr>
+
+    </thead>
+    <tbody>
+    {% if filter.qs %}
+    {% for surve in filter.qs %}
+    <tr>
+        <td>{{ surve.ref_no }}</td>
+        <td>{{ surve.house_owner }}</td>
+        <td>{{ surve.phone_no }}</td>
+        <td>{{ surve.longitude }}</td>
+        <td>{{ surve.latitude }}</td>
+
+        <td>
+            <a class="btn btn-primary" href="{% url 'survey:Surve_show' surve.ref_no %}">View</a>
+            <a class="btn btn-primary" href="{% url 'survey:Surve_edit' surve.ref_no %}">Edit</a>
+            <a class="btn btn-danger" href="{% url 'survey:Surve_eliminate' surve.ref_no %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    {% else %}
+    <h1>No </h1>
+    {% endif %}
+    </tbody>
+</table>
+<ul class="pager">
+    <li>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+    </li>
+    <li>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </li>
+</ul>
+
+{% endblock %}
+

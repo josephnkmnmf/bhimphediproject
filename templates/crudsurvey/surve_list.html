@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Reference No</td>
+			<td>Name of House Owner</td>
+			<td>Phone No</td>
+			<td>Longitude</td>
+			<td>Latitude</td>
+
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for surve in object_list %}
+		<tr>
+			<td>{{ surve.ref_no }}</td>
+			<td>{{ surve.house_owner }}</td>
+			<td>{{ surve.phone_no }}</td>
+			<td>{{ surve.longitude }}</td>
+			<td>{{ surve.latitude }}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'survey:Surve_show' surve.ref_no %}">View</a>
+				<a class="btn btn-primary" href="{% url 'survey:Surve_edit' surve.ref_no %}">Edit</a>
+				<a class="btn btn-danger" href="{% url 'survey:Surve_eliminate' surve.ref_no %}">Delete</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No one is registered in survey</h1>
+		{% endif %}
+	</tbody>
+</table>
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a> 
+    	{% endif %}
+    </li>
+</ul> 
+{% endblock %}

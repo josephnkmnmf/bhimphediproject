@@ -1,0 +1,12 @@
+{% extends 'base/base2.html' %}
+
+{% block content %}
+<div class="bs-docs-section clearfix" style="background-image: url('img/nmflogo.png');">
+   <h1>Welcome!!! You can login here</h1>
+    <form action="/survey/auth/" method="post">{% csrf_token %}
+        Username:<input name="username" id="username" type="text">
+        Password:<input name="password" id="password" type="password">
+        <button class="btn btn-info" type="submit">login</button>
+    </form>
+</div>
+{% endblock %}
